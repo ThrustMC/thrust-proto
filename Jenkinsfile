@@ -1,6 +1,10 @@
 // Requires Docker Pipeline plugin and Multibranch Pipeline with tag discovery.
 // Credentials: nexus-credentials.
 
+def bufRun(String cmd) {
+    sh "docker run --rm --volumes-from \$(cat /etc/hostname) -w \$WORKSPACE bufbuild/buf:1.68.1 ${cmd}"
+}
+
 pipeline {
     agent any
 
@@ -25,32 +29,23 @@ pipeline {
         }
 
         stage('Lint') {
-            agent {
-                docker {
-                    image 'bufbuild/buf:1.68.1'
-                    reuseNode true
-                }
-            }
             steps {
-                sh 'buf lint'
+                bufRun('lint')
             }
         }
 
         stage('Format Check') {
-            agent {
-                docker {
-                    image 'bufbuild/buf:1.68.1'
-                    reuseNode true
-                }
-            }
             steps {
-                sh '''
-                    diff="$(buf format --diff)"
-                    if [ -n "$diff" ]; then
-                        echo "$diff"
-                        exit 1
-                    fi
-                '''
+                script {
+                    def diff = sh(
+                        script: 'docker run --rm --volumes-from $(cat /etc/hostname) -w $WORKSPACE bufbuild/buf:1.68.1 format --diff',
+                        returnStdout: true
+                    ).trim()
+                    if (diff) {
+                        echo diff
+                        error 'buf format mismatch'
+                    }
+                }
             }
         }
 
@@ -61,44 +56,29 @@ pipeline {
                     not { buildingTag() }
                 }
             }
-            agent {
-                docker {
-                    image 'bufbuild/buf:1.68.1'
-                    reuseNode true
-                }
-            }
             steps {
-                sh 'buf breaking --against ".git#branch=main,ref=refs/remotes/origin/main"'
+                bufRun('breaking --against ".git#branch=main,ref=refs/remotes/origin/main"')
             }
         }
 
         stage('Breaking - Release') {
             when { buildingTag() }
-            agent {
-                docker {
-                    image 'bufbuild/buf:1.68.1'
-                    reuseNode true
-                }
-            }
             steps {
-                sh '''
-                    prev="$(git describe --tags --match 'v*' --abbrev=0 "${TAG_NAME}^" 2>/dev/null || true)"
-                    if [ -n "$prev" ]; then
-                        buf breaking --against ".git#tag=${prev}"
-                    fi
-                '''
+                script {
+                    def prev = sh(
+                        script: 'git describe --tags --match \'v*\' --abbrev=0 "${TAG_NAME}^" 2>/dev/null || true',
+                        returnStdout: true
+                    ).trim()
+                    if (prev) {
+                        bufRun("breaking --against \".git#tag=${prev}\"")
+                    }
+                }
             }
         }
 
         stage('Buf Generate') {
-            agent {
-                docker {
-                    image 'bufbuild/buf:1.68.1'
-                    reuseNode true
-                }
-            }
             steps {
-                sh 'buf generate'
+                bufRun('generate')
             }
         }
 
