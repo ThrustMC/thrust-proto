@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package thrust.player.v1alpha1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/player/v1alpha1;playerv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "PlayerProto";
+option java_package = "io.github.thrustmc.proto.player.v1alpha1";
+
+message Player {
+  string id = 1;
+  string name = 2;
+  repeated PlayerProperty properties = 3;
+  google.protobuf.Timestamp connected_at = 4;
+}
+
+message PlayerProperty {
+  string name = 1;
+  string value = 2;
+  string signature = 3;
+}

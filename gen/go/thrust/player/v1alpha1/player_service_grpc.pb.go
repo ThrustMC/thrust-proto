@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             (unknown)
-// source: thrustmc/v1/player_service.proto
+// source: thrust/player/v1alpha1/player_service.proto
 
-package thrustmcv1
+package playerv1alpha1
 
 import (
 	context "context"
@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PlayerService_GetAllPlayers_FullMethodName = "/thrustmc.v1.PlayerService/GetAllPlayers"
-	PlayerService_GetPlayer_FullMethodName     = "/thrustmc.v1.PlayerService/GetPlayer"
+	PlayerService_GetAllPlayers_FullMethodName = "/thrust.player.v1alpha1.PlayerService/GetAllPlayers"
+	PlayerService_GetPlayer_FullMethodName     = "/thrust.player.v1alpha1.PlayerService/GetPlayer"
 )
 
 // PlayerServiceClient is the client API for PlayerService service.
@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerServiceClient interface {
 	GetAllPlayers(ctx context.Context, in *GetAllPlayersRequest, opts ...grpc.CallOption) (*PlayerListResponse, error)
-	GetPlayer(ctx context.Context, in *GetPlayerRequest, opts ...grpc.CallOption) (*NetworkPlayer, error)
+	GetPlayer(ctx context.Context, in *GetPlayerRequest, opts ...grpc.CallOption) (*Player, error)
 }
 
 type playerServiceClient struct {
@@ -49,9 +49,9 @@ func (c *playerServiceClient) GetAllPlayers(ctx context.Context, in *GetAllPlaye
 	return out, nil
 }
 
-func (c *playerServiceClient) GetPlayer(ctx context.Context, in *GetPlayerRequest, opts ...grpc.CallOption) (*NetworkPlayer, error) {
+func (c *playerServiceClient) GetPlayer(ctx context.Context, in *GetPlayerRequest, opts ...grpc.CallOption) (*Player, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(NetworkPlayer)
+	out := new(Player)
 	err := c.cc.Invoke(ctx, PlayerService_GetPlayer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (c *playerServiceClient) GetPlayer(ctx context.Context, in *GetPlayerReques
 // for forward compatibility.
 type PlayerServiceServer interface {
 	GetAllPlayers(context.Context, *GetAllPlayersRequest) (*PlayerListResponse, error)
-	GetPlayer(context.Context, *GetPlayerRequest) (*NetworkPlayer, error)
+	GetPlayer(context.Context, *GetPlayerRequest) (*Player, error)
 	mustEmbedUnimplementedPlayerServiceServer()
 }
 
@@ -78,7 +78,7 @@ type UnimplementedPlayerServiceServer struct{}
 func (UnimplementedPlayerServiceServer) GetAllPlayers(context.Context, *GetAllPlayersRequest) (*PlayerListResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAllPlayers not implemented")
 }
-func (UnimplementedPlayerServiceServer) GetPlayer(context.Context, *GetPlayerRequest) (*NetworkPlayer, error) {
+func (UnimplementedPlayerServiceServer) GetPlayer(context.Context, *GetPlayerRequest) (*Player, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPlayer not implemented")
 }
 func (UnimplementedPlayerServiceServer) mustEmbedUnimplementedPlayerServiceServer() {}
@@ -142,7 +142,7 @@ func _PlayerService_GetPlayer_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PlayerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "thrustmc.v1.PlayerService",
+	ServiceName: "thrust.player.v1alpha1.PlayerService",
 	HandlerType: (*PlayerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -155,5 +155,5 @@ var PlayerService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "thrustmc/v1/player_service.proto",
+	Metadata: "thrust/player/v1alpha1/player_service.proto",
 }
