@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package thrust.player.v1alpha1;
+
+import "google/protobuf/timestamp.proto";
+import "thrust/player/v1alpha1/game_profile.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/player/v1alpha1;playerv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "PlayerSessionProto";
+option java_package = "io.github.thrustmc.proto.player.v1alpha1";
+
+message PlayerSession {
+  string id = 1;
+  GameProfile game_profile = 2;
+  google.protobuf.Timestamp connected_at = 3;
+}

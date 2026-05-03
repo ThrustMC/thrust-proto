@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package thrust.velocity.v1alpha1;
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/velocity/v1alpha1;velocityv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "BackendProto";
+option java_package = "io.github.thrustmc.proto.velocity.v1alpha1";
+
+message Backend {
+  string name = 1;
+  string address = 2;
+  string service_name = 3;
+  string pod_name = 4;
+  string namespace = 5;
+}
