@@ -10,19 +10,19 @@ option java_outer_classname = "BackendDiscoveryServiceProto";
 option java_package = "io.github.thrustmc.proto.velocity.v1alpha1";
 
 service BackendDiscoveryService {
-  rpc WatchBackends(WatchBackendsRequest) returns (stream BackendEvent);
+  rpc WatchServices(WatchServicesRequest) returns (stream BackendServiceEvent);
 }
 
-message WatchBackendsRequest {}
+message WatchServicesRequest {}
 
-message BackendEvent {
+message BackendServiceEvent {
   EventType type = 1;
-  Backend backend = 2;
+  BackendService service = 2;
 }
 
 enum EventType {
   EVENT_TYPE_UNSPECIFIED = 0;
   EVENT_TYPE_ADDED = 1;
-  EVENT_TYPE_REMOVED = 2;
-  EVENT_TYPE_UPDATED = 3;
+  EVENT_TYPE_UPDATED = 2;
+  EVENT_TYPE_REMOVED = 3;
 }

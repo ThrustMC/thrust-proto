@@ -26,8 +26,8 @@ type EventType int32
 const (
 	EventType_EVENT_TYPE_UNSPECIFIED EventType = 0
 	EventType_EVENT_TYPE_ADDED       EventType = 1
-	EventType_EVENT_TYPE_REMOVED     EventType = 2
-	EventType_EVENT_TYPE_UPDATED     EventType = 3
+	EventType_EVENT_TYPE_UPDATED     EventType = 2
+	EventType_EVENT_TYPE_REMOVED     EventType = 3
 )
 
 // Enum value maps for EventType.
@@ -35,14 +35,14 @@ var (
 	EventType_name = map[int32]string{
 		0: "EVENT_TYPE_UNSPECIFIED",
 		1: "EVENT_TYPE_ADDED",
-		2: "EVENT_TYPE_REMOVED",
-		3: "EVENT_TYPE_UPDATED",
+		2: "EVENT_TYPE_UPDATED",
+		3: "EVENT_TYPE_REMOVED",
 	}
 	EventType_value = map[string]int32{
 		"EVENT_TYPE_UNSPECIFIED": 0,
 		"EVENT_TYPE_ADDED":       1,
-		"EVENT_TYPE_REMOVED":     2,
-		"EVENT_TYPE_UPDATED":     3,
+		"EVENT_TYPE_UPDATED":     2,
+		"EVENT_TYPE_REMOVED":     3,
 	}
 )
 
@@ -73,26 +73,26 @@ func (EventType) EnumDescriptor() ([]byte, []int) {
 	return file_thrust_velocity_v1alpha1_backend_discovery_service_proto_rawDescGZIP(), []int{0}
 }
 
-type WatchBackendsRequest struct {
+type WatchServicesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *WatchBackendsRequest) Reset() {
-	*x = WatchBackendsRequest{}
+func (x *WatchServicesRequest) Reset() {
+	*x = WatchServicesRequest{}
 	mi := &file_thrust_velocity_v1alpha1_backend_discovery_service_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *WatchBackendsRequest) String() string {
+func (x *WatchServicesRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*WatchBackendsRequest) ProtoMessage() {}
+func (*WatchServicesRequest) ProtoMessage() {}
 
-func (x *WatchBackendsRequest) ProtoReflect() protoreflect.Message {
+func (x *WatchServicesRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_thrust_velocity_v1alpha1_backend_discovery_service_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -104,33 +104,33 @@ func (x *WatchBackendsRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WatchBackendsRequest.ProtoReflect.Descriptor instead.
-func (*WatchBackendsRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use WatchServicesRequest.ProtoReflect.Descriptor instead.
+func (*WatchServicesRequest) Descriptor() ([]byte, []int) {
 	return file_thrust_velocity_v1alpha1_backend_discovery_service_proto_rawDescGZIP(), []int{0}
 }
 
-type BackendEvent struct {
+type BackendServiceEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Type          EventType              `protobuf:"varint,1,opt,name=type,proto3,enum=thrust.velocity.v1alpha1.EventType" json:"type,omitempty"`
-	Backend       *Backend               `protobuf:"bytes,2,opt,name=backend,proto3" json:"backend,omitempty"`
+	Service       *BackendService        `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *BackendEvent) Reset() {
-	*x = BackendEvent{}
+func (x *BackendServiceEvent) Reset() {
+	*x = BackendServiceEvent{}
 	mi := &file_thrust_velocity_v1alpha1_backend_discovery_service_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *BackendEvent) String() string {
+func (x *BackendServiceEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*BackendEvent) ProtoMessage() {}
+func (*BackendServiceEvent) ProtoMessage() {}
 
-func (x *BackendEvent) ProtoReflect() protoreflect.Message {
+func (x *BackendServiceEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_thrust_velocity_v1alpha1_backend_discovery_service_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -142,21 +142,21 @@ func (x *BackendEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use BackendEvent.ProtoReflect.Descriptor instead.
-func (*BackendEvent) Descriptor() ([]byte, []int) {
+// Deprecated: Use BackendServiceEvent.ProtoReflect.Descriptor instead.
+func (*BackendServiceEvent) Descriptor() ([]byte, []int) {
 	return file_thrust_velocity_v1alpha1_backend_discovery_service_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *BackendEvent) GetType() EventType {
+func (x *BackendServiceEvent) GetType() EventType {
 	if x != nil {
 		return x.Type
 	}
 	return EventType_EVENT_TYPE_UNSPECIFIED
 }
 
-func (x *BackendEvent) GetBackend() *Backend {
+func (x *BackendServiceEvent) GetService() *BackendService {
 	if x != nil {
-		return x.Backend
+		return x.Service
 	}
 	return nil
 }
@@ -166,17 +166,17 @@ var File_thrust_velocity_v1alpha1_backend_discovery_service_proto protoreflect.F
 const file_thrust_velocity_v1alpha1_backend_discovery_service_proto_rawDesc = "" +
 	"\n" +
 	"8thrust/velocity/v1alpha1/backend_discovery_service.proto\x12\x18thrust.velocity.v1alpha1\x1a&thrust/velocity/v1alpha1/backend.proto\"\x16\n" +
-	"\x14WatchBackendsRequest\"\x84\x01\n" +
-	"\fBackendEvent\x127\n" +
-	"\x04type\x18\x01 \x01(\x0e2#.thrust.velocity.v1alpha1.EventTypeR\x04type\x12;\n" +
-	"\abackend\x18\x02 \x01(\v2!.thrust.velocity.v1alpha1.BackendR\abackend*m\n" +
+	"\x14WatchServicesRequest\"\x92\x01\n" +
+	"\x13BackendServiceEvent\x127\n" +
+	"\x04type\x18\x01 \x01(\x0e2#.thrust.velocity.v1alpha1.EventTypeR\x04type\x12B\n" +
+	"\aservice\x18\x02 \x01(\v2(.thrust.velocity.v1alpha1.BackendServiceR\aservice*m\n" +
 	"\tEventType\x12\x1a\n" +
 	"\x16EVENT_TYPE_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10EVENT_TYPE_ADDED\x10\x01\x12\x16\n" +
-	"\x12EVENT_TYPE_REMOVED\x10\x02\x12\x16\n" +
-	"\x12EVENT_TYPE_UPDATED\x10\x032\x84\x01\n" +
-	"\x17BackendDiscoveryService\x12i\n" +
-	"\rWatchBackends\x12..thrust.velocity.v1alpha1.WatchBackendsRequest\x1a&.thrust.velocity.v1alpha1.BackendEvent0\x01B\x9f\x01\n" +
+	"\x12EVENT_TYPE_UPDATED\x10\x02\x12\x16\n" +
+	"\x12EVENT_TYPE_REMOVED\x10\x032\x8b\x01\n" +
+	"\x17BackendDiscoveryService\x12p\n" +
+	"\rWatchServices\x12..thrust.velocity.v1alpha1.WatchServicesRequest\x1a-.thrust.velocity.v1alpha1.BackendServiceEvent0\x01B\x9f\x01\n" +
 	"*io.github.thrustmc.proto.velocity.v1alpha1B\x1cBackendDiscoveryServiceProtoP\x01ZQgithub.com/thrustmc/thrust-proto/gen/go/thrust/velocity/v1alpha1;velocityv1alpha1b\x06proto3"
 
 var (
@@ -195,15 +195,15 @@ var file_thrust_velocity_v1alpha1_backend_discovery_service_proto_enumTypes = ma
 var file_thrust_velocity_v1alpha1_backend_discovery_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_thrust_velocity_v1alpha1_backend_discovery_service_proto_goTypes = []any{
 	(EventType)(0),               // 0: thrust.velocity.v1alpha1.EventType
-	(*WatchBackendsRequest)(nil), // 1: thrust.velocity.v1alpha1.WatchBackendsRequest
-	(*BackendEvent)(nil),         // 2: thrust.velocity.v1alpha1.BackendEvent
-	(*Backend)(nil),              // 3: thrust.velocity.v1alpha1.Backend
+	(*WatchServicesRequest)(nil), // 1: thrust.velocity.v1alpha1.WatchServicesRequest
+	(*BackendServiceEvent)(nil),  // 2: thrust.velocity.v1alpha1.BackendServiceEvent
+	(*BackendService)(nil),       // 3: thrust.velocity.v1alpha1.BackendService
 }
 var file_thrust_velocity_v1alpha1_backend_discovery_service_proto_depIdxs = []int32{
-	0, // 0: thrust.velocity.v1alpha1.BackendEvent.type:type_name -> thrust.velocity.v1alpha1.EventType
-	3, // 1: thrust.velocity.v1alpha1.BackendEvent.backend:type_name -> thrust.velocity.v1alpha1.Backend
-	1, // 2: thrust.velocity.v1alpha1.BackendDiscoveryService.WatchBackends:input_type -> thrust.velocity.v1alpha1.WatchBackendsRequest
-	2, // 3: thrust.velocity.v1alpha1.BackendDiscoveryService.WatchBackends:output_type -> thrust.velocity.v1alpha1.BackendEvent
+	0, // 0: thrust.velocity.v1alpha1.BackendServiceEvent.type:type_name -> thrust.velocity.v1alpha1.EventType
+	3, // 1: thrust.velocity.v1alpha1.BackendServiceEvent.service:type_name -> thrust.velocity.v1alpha1.BackendService
+	1, // 2: thrust.velocity.v1alpha1.BackendDiscoveryService.WatchServices:input_type -> thrust.velocity.v1alpha1.WatchServicesRequest
+	2, // 3: thrust.velocity.v1alpha1.BackendDiscoveryService.WatchServices:output_type -> thrust.velocity.v1alpha1.BackendServiceEvent
 	3, // [3:4] is the sub-list for method output_type
 	2, // [2:3] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

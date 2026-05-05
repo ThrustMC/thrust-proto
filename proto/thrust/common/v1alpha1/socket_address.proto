@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package thrust.common.v1alpha1;
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/common/v1alpha1;commonv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "SocketAddressProto";
+option java_package = "io.github.thrustmc.proto.common.v1alpha1";
+
+message SocketAddress {
+  string host = 1;
+  int32 port = 2;
+}

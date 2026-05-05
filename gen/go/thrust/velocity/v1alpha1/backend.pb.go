@@ -7,6 +7,7 @@
 package velocityv1alpha1
 
 import (
+	v1alpha1 "github.com/thrustmc/thrust-proto/gen/go/thrust/common/v1alpha1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -21,31 +22,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Backend struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Address       string                 `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
-	ServiceName   string                 `protobuf:"bytes,3,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	PodName       string                 `protobuf:"bytes,4,opt,name=pod_name,json=podName,proto3" json:"pod_name,omitempty"`
-	Namespace     string                 `protobuf:"bytes,5,opt,name=namespace,proto3" json:"namespace,omitempty"`
+type BackendEndpoint struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Name          string                  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Address       *v1alpha1.SocketAddress `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Backend) Reset() {
-	*x = Backend{}
+func (x *BackendEndpoint) Reset() {
+	*x = BackendEndpoint{}
 	mi := &file_thrust_velocity_v1alpha1_backend_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Backend) String() string {
+func (x *BackendEndpoint) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Backend) ProtoMessage() {}
+func (*BackendEndpoint) ProtoMessage() {}
 
-func (x *Backend) ProtoReflect() protoreflect.Message {
+func (x *BackendEndpoint) ProtoReflect() protoreflect.Message {
 	mi := &file_thrust_velocity_v1alpha1_backend_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -57,57 +55,106 @@ func (x *Backend) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Backend.ProtoReflect.Descriptor instead.
-func (*Backend) Descriptor() ([]byte, []int) {
+// Deprecated: Use BackendEndpoint.ProtoReflect.Descriptor instead.
+func (*BackendEndpoint) Descriptor() ([]byte, []int) {
 	return file_thrust_velocity_v1alpha1_backend_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Backend) GetName() string {
+func (x *BackendEndpoint) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *Backend) GetAddress() string {
+func (x *BackendEndpoint) GetAddress() *v1alpha1.SocketAddress {
 	if x != nil {
 		return x.Address
 	}
-	return ""
+	return nil
 }
 
-func (x *Backend) GetServiceName() string {
+type BackendService struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Name          string                  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace     string                  `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	Address       *v1alpha1.SocketAddress `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	Endpoints     []*BackendEndpoint      `protobuf:"bytes,4,rep,name=endpoints,proto3" json:"endpoints,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackendService) Reset() {
+	*x = BackendService{}
+	mi := &file_thrust_velocity_v1alpha1_backend_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackendService) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackendService) ProtoMessage() {}
+
+func (x *BackendService) ProtoReflect() protoreflect.Message {
+	mi := &file_thrust_velocity_v1alpha1_backend_proto_msgTypes[1]
 	if x != nil {
-		return x.ServiceName
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackendService.ProtoReflect.Descriptor instead.
+func (*BackendService) Descriptor() ([]byte, []int) {
+	return file_thrust_velocity_v1alpha1_backend_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *BackendService) GetName() string {
+	if x != nil {
+		return x.Name
 	}
 	return ""
 }
 
-func (x *Backend) GetPodName() string {
-	if x != nil {
-		return x.PodName
-	}
-	return ""
-}
-
-func (x *Backend) GetNamespace() string {
+func (x *BackendService) GetNamespace() string {
 	if x != nil {
 		return x.Namespace
 	}
 	return ""
 }
 
+func (x *BackendService) GetAddress() *v1alpha1.SocketAddress {
+	if x != nil {
+		return x.Address
+	}
+	return nil
+}
+
+func (x *BackendService) GetEndpoints() []*BackendEndpoint {
+	if x != nil {
+		return x.Endpoints
+	}
+	return nil
+}
+
 var File_thrust_velocity_v1alpha1_backend_proto protoreflect.FileDescriptor
 
 const file_thrust_velocity_v1alpha1_backend_proto_rawDesc = "" +
 	"\n" +
-	"&thrust/velocity/v1alpha1/backend.proto\x12\x18thrust.velocity.v1alpha1\"\x93\x01\n" +
-	"\aBackend\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n" +
-	"\aaddress\x18\x02 \x01(\tR\aaddress\x12!\n" +
-	"\fservice_name\x18\x03 \x01(\tR\vserviceName\x12\x19\n" +
-	"\bpod_name\x18\x04 \x01(\tR\apodName\x12\x1c\n" +
-	"\tnamespace\x18\x05 \x01(\tR\tnamespaceB\x8f\x01\n" +
+	"&thrust/velocity/v1alpha1/backend.proto\x12\x18thrust.velocity.v1alpha1\x1a+thrust/common/v1alpha1/socket_address.proto\"f\n" +
+	"\x0fBackendEndpoint\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12?\n" +
+	"\aaddress\x18\x02 \x01(\v2%.thrust.common.v1alpha1.SocketAddressR\aaddress\"\xcc\x01\n" +
+	"\x0eBackendService\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
+	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12?\n" +
+	"\aaddress\x18\x03 \x01(\v2%.thrust.common.v1alpha1.SocketAddressR\aaddress\x12G\n" +
+	"\tendpoints\x18\x04 \x03(\v2).thrust.velocity.v1alpha1.BackendEndpointR\tendpointsB\x8f\x01\n" +
 	"*io.github.thrustmc.proto.velocity.v1alpha1B\fBackendProtoP\x01ZQgithub.com/thrustmc/thrust-proto/gen/go/thrust/velocity/v1alpha1;velocityv1alpha1b\x06proto3"
 
 var (
@@ -122,16 +169,21 @@ func file_thrust_velocity_v1alpha1_backend_proto_rawDescGZIP() []byte {
 	return file_thrust_velocity_v1alpha1_backend_proto_rawDescData
 }
 
-var file_thrust_velocity_v1alpha1_backend_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_thrust_velocity_v1alpha1_backend_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_thrust_velocity_v1alpha1_backend_proto_goTypes = []any{
-	(*Backend)(nil), // 0: thrust.velocity.v1alpha1.Backend
+	(*BackendEndpoint)(nil),        // 0: thrust.velocity.v1alpha1.BackendEndpoint
+	(*BackendService)(nil),         // 1: thrust.velocity.v1alpha1.BackendService
+	(*v1alpha1.SocketAddress)(nil), // 2: thrust.common.v1alpha1.SocketAddress
 }
 var file_thrust_velocity_v1alpha1_backend_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: thrust.velocity.v1alpha1.BackendEndpoint.address:type_name -> thrust.common.v1alpha1.SocketAddress
+	2, // 1: thrust.velocity.v1alpha1.BackendService.address:type_name -> thrust.common.v1alpha1.SocketAddress
+	0, // 2: thrust.velocity.v1alpha1.BackendService.endpoints:type_name -> thrust.velocity.v1alpha1.BackendEndpoint
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_thrust_velocity_v1alpha1_backend_proto_init() }
@@ -145,7 +197,7 @@ func file_thrust_velocity_v1alpha1_backend_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_thrust_velocity_v1alpha1_backend_proto_rawDesc), len(file_thrust_velocity_v1alpha1_backend_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

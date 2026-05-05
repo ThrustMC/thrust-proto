@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BackendDiscoveryService_WatchBackends_FullMethodName = "/thrust.velocity.v1alpha1.BackendDiscoveryService/WatchBackends"
+	BackendDiscoveryService_WatchServices_FullMethodName = "/thrust.velocity.v1alpha1.BackendDiscoveryService/WatchServices"
 )
 
 // BackendDiscoveryServiceClient is the client API for BackendDiscoveryService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BackendDiscoveryServiceClient interface {
-	WatchBackends(ctx context.Context, in *WatchBackendsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[BackendEvent], error)
+	WatchServices(ctx context.Context, in *WatchServicesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[BackendServiceEvent], error)
 }
 
 type backendDiscoveryServiceClient struct {
@@ -37,13 +37,13 @@ func NewBackendDiscoveryServiceClient(cc grpc.ClientConnInterface) BackendDiscov
 	return &backendDiscoveryServiceClient{cc}
 }
 
-func (c *backendDiscoveryServiceClient) WatchBackends(ctx context.Context, in *WatchBackendsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[BackendEvent], error) {
+func (c *backendDiscoveryServiceClient) WatchServices(ctx context.Context, in *WatchServicesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[BackendServiceEvent], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &BackendDiscoveryService_ServiceDesc.Streams[0], BackendDiscoveryService_WatchBackends_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &BackendDiscoveryService_ServiceDesc.Streams[0], BackendDiscoveryService_WatchServices_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[WatchBackendsRequest, BackendEvent]{ClientStream: stream}
+	x := &grpc.GenericClientStream[WatchServicesRequest, BackendServiceEvent]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -54,13 +54,13 @@ func (c *backendDiscoveryServiceClient) WatchBackends(ctx context.Context, in *W
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type BackendDiscoveryService_WatchBackendsClient = grpc.ServerStreamingClient[BackendEvent]
+type BackendDiscoveryService_WatchServicesClient = grpc.ServerStreamingClient[BackendServiceEvent]
 
 // BackendDiscoveryServiceServer is the server API for BackendDiscoveryService service.
 // All implementations must embed UnimplementedBackendDiscoveryServiceServer
 // for forward compatibility.
 type BackendDiscoveryServiceServer interface {
-	WatchBackends(*WatchBackendsRequest, grpc.ServerStreamingServer[BackendEvent]) error
+	WatchServices(*WatchServicesRequest, grpc.ServerStreamingServer[BackendServiceEvent]) error
 	mustEmbedUnimplementedBackendDiscoveryServiceServer()
 }
 
@@ -71,8 +71,8 @@ type BackendDiscoveryServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedBackendDiscoveryServiceServer struct{}
 
-func (UnimplementedBackendDiscoveryServiceServer) WatchBackends(*WatchBackendsRequest, grpc.ServerStreamingServer[BackendEvent]) error {
-	return status.Error(codes.Unimplemented, "method WatchBackends not implemented")
+func (UnimplementedBackendDiscoveryServiceServer) WatchServices(*WatchServicesRequest, grpc.ServerStreamingServer[BackendServiceEvent]) error {
+	return status.Error(codes.Unimplemented, "method WatchServices not implemented")
 }
 func (UnimplementedBackendDiscoveryServiceServer) mustEmbedUnimplementedBackendDiscoveryServiceServer() {
 }
@@ -96,16 +96,16 @@ func RegisterBackendDiscoveryServiceServer(s grpc.ServiceRegistrar, srv BackendD
 	s.RegisterService(&BackendDiscoveryService_ServiceDesc, srv)
 }
 
-func _BackendDiscoveryService_WatchBackends_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(WatchBackendsRequest)
+func _BackendDiscoveryService_WatchServices_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(WatchServicesRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(BackendDiscoveryServiceServer).WatchBackends(m, &grpc.GenericServerStream[WatchBackendsRequest, BackendEvent]{ServerStream: stream})
+	return srv.(BackendDiscoveryServiceServer).WatchServices(m, &grpc.GenericServerStream[WatchServicesRequest, BackendServiceEvent]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type BackendDiscoveryService_WatchBackendsServer = grpc.ServerStreamingServer[BackendEvent]
+type BackendDiscoveryService_WatchServicesServer = grpc.ServerStreamingServer[BackendServiceEvent]
 
 // BackendDiscoveryService_ServiceDesc is the grpc.ServiceDesc for BackendDiscoveryService service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -116,8 +116,8 @@ var BackendDiscoveryService_ServiceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "WatchBackends",
-			Handler:       _BackendDiscoveryService_WatchBackends_Handler,
+			StreamName:    "WatchServices",
+			Handler:       _BackendDiscoveryService_WatchServices_Handler,
 			ServerStreams: true,
 		},
 	},
