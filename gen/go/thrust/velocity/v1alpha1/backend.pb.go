@@ -80,6 +80,8 @@ type BackendService struct {
 	Namespace     string                  `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
 	Address       *v1alpha1.SocketAddress `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 	Endpoints     []*BackendEndpoint      `protobuf:"bytes,4,rep,name=endpoints,proto3" json:"endpoints,omitempty"`
+	Host          string                  `protobuf:"bytes,5,opt,name=host,proto3" json:"host,omitempty"`
+	Fallback      string                  `protobuf:"bytes,6,opt,name=fallback,proto3" json:"fallback,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -142,6 +144,20 @@ func (x *BackendService) GetEndpoints() []*BackendEndpoint {
 	return nil
 }
 
+func (x *BackendService) GetHost() string {
+	if x != nil {
+		return x.Host
+	}
+	return ""
+}
+
+func (x *BackendService) GetFallback() string {
+	if x != nil {
+		return x.Fallback
+	}
+	return ""
+}
+
 var File_thrust_velocity_v1alpha1_backend_proto protoreflect.FileDescriptor
 
 const file_thrust_velocity_v1alpha1_backend_proto_rawDesc = "" +
@@ -149,12 +165,14 @@ const file_thrust_velocity_v1alpha1_backend_proto_rawDesc = "" +
 	"&thrust/velocity/v1alpha1/backend.proto\x12\x18thrust.velocity.v1alpha1\x1a+thrust/common/v1alpha1/socket_address.proto\"f\n" +
 	"\x0fBackendEndpoint\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12?\n" +
-	"\aaddress\x18\x02 \x01(\v2%.thrust.common.v1alpha1.SocketAddressR\aaddress\"\xcc\x01\n" +
+	"\aaddress\x18\x02 \x01(\v2%.thrust.common.v1alpha1.SocketAddressR\aaddress\"\xfc\x01\n" +
 	"\x0eBackendService\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
 	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12?\n" +
 	"\aaddress\x18\x03 \x01(\v2%.thrust.common.v1alpha1.SocketAddressR\aaddress\x12G\n" +
-	"\tendpoints\x18\x04 \x03(\v2).thrust.velocity.v1alpha1.BackendEndpointR\tendpointsB\x8f\x01\n" +
+	"\tendpoints\x18\x04 \x03(\v2).thrust.velocity.v1alpha1.BackendEndpointR\tendpoints\x12\x12\n" +
+	"\x04host\x18\x05 \x01(\tR\x04host\x12\x1a\n" +
+	"\bfallback\x18\x06 \x01(\tR\bfallbackB\x8f\x01\n" +
 	"*io.github.thrustmc.proto.velocity.v1alpha1B\fBackendProtoP\x01ZQgithub.com/thrustmc/thrust-proto/gen/go/thrust/velocity/v1alpha1;velocityv1alpha1b\x06proto3"
 
 var (

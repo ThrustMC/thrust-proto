@@ -19,4 +19,6 @@ message BackendService {
   string namespace = 2;
   thrust.common.v1alpha1.SocketAddress address = 3;
   repeated BackendEndpoint endpoints = 4;
+  string host = 5;
+  string fallback = 6;
 }
