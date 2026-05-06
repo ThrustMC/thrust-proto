@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package thrust.backend.v1alpha1;
+
+import "google/api/field_behavior.proto";
+import "thrust/backend/v1alpha1/backend.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/backend/v1alpha1;backendv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "BackendRoutingServiceProto";
+option java_package = "io.github.thrustmc.proto.backend.v1alpha1";
+
+service BackendRoutingService {
+  rpc SwitchOnlinePlayerBackendEndpoint(SwitchOnlinePlayerBackendEndpointRequest) returns (SwitchOnlinePlayerBackendEndpointResponse);
+  rpc PickBackendEndpoint(PickBackendEndpointRequest) returns (PickBackendEndpointResponse);
+}
+
+message SwitchOnlinePlayerBackendEndpointRequest {
+  string online_player_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string backend_endpoint_name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SwitchOnlinePlayerBackendEndpointResponse {}
+
+message PickBackendEndpointRequest {
+  string backend_service_name = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message PickBackendEndpointResponse {
+  BackendEndpoint backend_endpoint = 1;
+}

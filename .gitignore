@@ -1,7 +1,10 @@
 .DS_Store
 .idea/
 *.iml
+
 .gradle/
 build/
+out/
+
 vendor/
 gen/java/

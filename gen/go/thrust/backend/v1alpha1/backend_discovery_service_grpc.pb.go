@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             (unknown)
-// source: thrust/velocity/v1alpha1/backend_discovery_service.proto
+// source: thrust/backend/v1alpha1/backend_discovery_service.proto
 
-package velocityv1alpha1
+package backendv1alpha1
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BackendDiscoveryService_WatchServices_FullMethodName = "/thrust.velocity.v1alpha1.BackendDiscoveryService/WatchServices"
+	BackendDiscoveryService_WatchServices_FullMethodName = "/thrust.backend.v1alpha1.BackendDiscoveryService/WatchServices"
 )
 
 // BackendDiscoveryServiceClient is the client API for BackendDiscoveryService service.
@@ -111,7 +111,7 @@ type BackendDiscoveryService_WatchServicesServer = grpc.ServerStreamingServer[Ba
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BackendDiscoveryService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "thrust.velocity.v1alpha1.BackendDiscoveryService",
+	ServiceName: "thrust.backend.v1alpha1.BackendDiscoveryService",
 	HandlerType: (*BackendDiscoveryServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
@@ -121,5 +121,5 @@ var BackendDiscoveryService_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "thrust/velocity/v1alpha1/backend_discovery_service.proto",
+	Metadata: "thrust/backend/v1alpha1/backend_discovery_service.proto",
 }

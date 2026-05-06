@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package thrust.backend.v1alpha1;
+
+import "google/api/field_behavior.proto";
+import "thrust/backend/v1alpha1/backend.proto";
+import "thrust/type/namespaced_name.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/backend/v1alpha1;backendv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "BackendDiscoveryServiceProto";
+option java_package = "io.github.thrustmc.proto.backend.v1alpha1";
+
+service BackendDiscoveryService {
+  rpc WatchServices(WatchServicesRequest) returns (stream BackendServiceEvent);
+}
+
+message WatchServicesRequest {
+  bool send_initial_snapshot = 1 [(google.api.field_behavior) = OPTIONAL];
+  uint64 from_sequence = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message BackendServiceEvent {
+  oneof event {
+    Added added = 1;
+    Updated updated = 2;
+    Removed removed = 3;
+    SnapshotComplete snapshot_complete = 4;
+  }
+
+  uint64 sequence = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  message Added {
+    BackendService backend_service = 1;
+  }
+
+  message Updated {
+    BackendService backend_service = 1;
+  }
+
+  message Removed {
+    thrust.type.NamespacedName backend_service_id = 1;
+  }
+
+  message SnapshotComplete {}
+}

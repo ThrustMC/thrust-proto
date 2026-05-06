@@ -25,6 +25,7 @@ dependencies {
     api("com.google.protobuf:protobuf-java:4.34.1")
     api("io.grpc:grpc-stub:1.74.0")
     api("io.grpc:grpc-protobuf:1.74.0")
+    api("com.google.api.grpc:proto-google-common-protos:2.45.0")
 }
 
 tasks.javadoc {
@@ -42,9 +43,11 @@ publishing {
     repositories {
         maven {
             name = "nexus"
-            val releases = "https://nexus.junhyung.kr/repository/maven-releases/"
-            val snapshots = "https://nexus.junhyung.kr/repository/maven-snapshots/"
-            url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshots else releases)
+            if (version.toString().endsWith("-SNAPSHOT")) {
+                url = uri("https://snapshots.junhyung.nexus/")
+            } else {
+                url = uri("https://releases.junhyung.nexus/")
+            }
             credentials {
                 username = providers.environmentVariable("NEXUS_USER").orNull
                     ?: providers.gradleProperty("nexus.username").orNull

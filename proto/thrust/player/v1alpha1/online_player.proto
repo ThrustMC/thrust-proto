@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package thrust.player.v1alpha1;
+
+import "google/api/field_behavior.proto";
+import "thrust/type/socket_address.proto";
+import "thrust/player/v1alpha1/game_profile.proto";
+import "thrust/player/v1alpha1/mod.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/player/v1alpha1;playerv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "OnlinePlayerProto";
+option java_package = "io.github.thrustmc.proto.player.v1alpha1";
+
+message OnlinePlayer {
+  string id = 1 [(google.api.field_behavior) = IDENTIFIER];
+  GameProfile game_profile = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  int32 ping_ms = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string current_backend_endpoint_name = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  ModInfo mod_info = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string client_brand = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  thrust.type.SocketAddress remote_address = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+  thrust.type.SocketAddress virtual_host = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 protocol_version = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

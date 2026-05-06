@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package thrust.backend.v1alpha1;
+
+import "google/api/field_behavior.proto";
+import "thrust/type/namespaced_name.proto";
+import "thrust/type/socket_address.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/backend/v1alpha1;backendv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "BackendProto";
+option java_package = "io.github.thrustmc.proto.backend.v1alpha1";
+
+message BackendEndpoint {
+  string name = 1 [(google.api.field_behavior) = IDENTIFIER];
+  thrust.type.SocketAddress address = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message BackendService {
+  thrust.type.NamespacedName id = 1 [(google.api.field_behavior) = IDENTIFIER];
+  thrust.type.SocketAddress address = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated BackendEndpoint endpoints = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string routing_host = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string fallback_service_name = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

@@ -1,11 +1,16 @@
 version: v2
 modules:
   - path: proto
+deps:
+  - buf.build/googleapis/googleapis
 lint:
   use:
     - STANDARD
   except:
     - RPC_RESPONSE_STANDARD_NAME
+  ignore_only:
+    PACKAGE_VERSION_SUFFIX:
+      - proto/thrust/type
 breaking:
   use:
     - FILE

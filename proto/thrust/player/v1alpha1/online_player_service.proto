@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package thrust.player.v1alpha1;
+
+import "google/api/field_behavior.proto";
+import "thrust/type/socket_address.proto";
+import "thrust/player/v1alpha1/online_player.proto";
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/player/v1alpha1;playerv1alpha1";
+option java_multiple_files = true;
+option java_outer_classname = "OnlinePlayerServiceProto";
+option java_package = "io.github.thrustmc.proto.player.v1alpha1";
+
+service OnlinePlayerService {
+  rpc WatchOnlinePlayers(WatchOnlinePlayersRequest) returns (stream OnlinePlayerEvent);
+  rpc DisconnectOnlinePlayer(DisconnectOnlinePlayerRequest) returns (DisconnectOnlinePlayerResponse);
+  rpc TransferOnlinePlayer(TransferOnlinePlayerRequest) returns (TransferOnlinePlayerResponse);
+}
+
+message DisconnectOnlinePlayerRequest {
+  string online_player_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string reason = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message DisconnectOnlinePlayerResponse {}
+
+message TransferOnlinePlayerRequest {
+  string online_player_id = 1 [(google.api.field_behavior) = REQUIRED];
+  thrust.type.SocketAddress host = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message TransferOnlinePlayerResponse {}
+
+message WatchOnlinePlayersRequest {
+  bool send_initial_snapshot = 1 [(google.api.field_behavior) = OPTIONAL];
+  uint64 from_sequence = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message OnlinePlayerEvent {
+  oneof event {
+    Joined joined = 1;
+    Left left = 2;
+    ServerChanged server_changed = 3;
+    SnapshotComplete snapshot_complete = 4;
+  }
+
+  uint64 sequence = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  message Joined {
+    OnlinePlayer online_player = 1;
+  }
+
+  message Left {
+    string online_player_id = 1;
+  }
+
+  message ServerChanged {
+    OnlinePlayer online_player = 1;
+    string previous_backend_endpoint_name = 2;
+  }
+
+  message SnapshotComplete {}
+}

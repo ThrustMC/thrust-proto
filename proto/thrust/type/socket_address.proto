@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package thrust.type;
+
+option go_package = "github.com/thrustmc/thrust-proto/gen/go/thrust/type;typepb";
+option java_multiple_files = true;
+option java_outer_classname = "SocketAddressProto";
+option java_package = "io.github.thrustmc.proto.type";
+
+message SocketAddress {
+  string host = 1;
+  uint32 port = 2;
+}
