@@ -44,9 +44,9 @@ publishing {
         maven {
             name = "nexus"
             if (version.toString().endsWith("-SNAPSHOT")) {
-                url = uri("https://snapshots.junhyung.nexus/")
+                url = uri("https://nexus.junhyung.kr/repository/maven-snapshots/")
             } else {
-                url = uri("https://releases.junhyung.nexus/")
+                url = uri("https://nexus.junhyung.kr/repository/maven-releases/")
             }
             credentials {
                 username = providers.environmentVariable("NEXUS_USER").orNull
